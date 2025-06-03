@@ -10,9 +10,15 @@ app = FastAPI()
 @app.post("/generate")
 async def generate_text(request: GenerateRequest):
     try:
+        options = {
+            "temperature": request.temperature,
+        }
+
+        # deepseek-r1:14b
         response = ollama.chat(
-            model="deepseek-r1:14b",
-            messages=[{"role": "user", "content": request.prompt}]
+            model="gemma3:12b",
+            messages=[{"role": "user", "content": request.prompt}],
+            options=options,
         )
 
         return {"response": response["message"]["content"]}
@@ -26,5 +32,5 @@ async def health_check():
     return {"status": "ok"}
 
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=False)
+# if __name__ == "__main__":
+#     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=False)
