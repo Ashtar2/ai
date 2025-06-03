@@ -6,6 +6,14 @@ from models.generate_request import GenerateRequest
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.post("/generate")
 async def generate_text(request: GenerateRequest):

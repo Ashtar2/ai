@@ -2,3 +2,4 @@ fastapi
 ollama
 pydantic
 uvicorn
+fastapi-cors
